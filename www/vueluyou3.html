@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <router-link to="/">首页</router-link>
+        <router-link to="/computer">电脑</router-link>
+        <router-link to="/price">价格</router-link>
+        <router-link to="/balala">其他</router-link>
+
+        <router-view></router-view>
+    </div>
+
+    <script src="js/vue.min.js"></script>
+    <script src="js/vue-router.min.js"></script>
+    <script>
+
+        var home = { template: '<p>我是首页</p>' };
+        var computer = { template: '<p>我是电脑</p>' };
+        var price = { template: '<p>我是价格页</p>' };
+        var balala = { template: '<p>我是其他页</p>' };
+
+        var apple = [{
+            path: '/',
+            component: home
+        }, {
+            path: '/computer',
+            component: computer
+        }, {
+            path: '/price',
+            component: price
+        }, {
+            path: '/balala',
+            component: balala
+        }]
+
+
+
+        var app = new Vue({
+            el: '#app',
+            router: new VueRouter({
+                routes: apple,
+            })
+
+        })
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "fancy-zoom",
+  "version": "1.2.1",
+  "main": [
+    "./css/fancyzoom.css",
+    "./src/fancyzoom.js",
+    "./img/closebox.png"
+  ],
+  "dependencies": {
+    "jquery": ">=1.8.3"
+  },
+  "homepage": "https://github.com/lluchs/fancy-zoom",
+  "_release": "1.2.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.2.1",
+    "commit": "473943c94ba0b51d8cc7f8d985914d7ac13021a0"
+  },
+  "_source": "https://github.com/lluchs/fancy-zoom.git",
+  "_target": "^1.2.1",
+  "_originalSource": "fancy-zoom"
+}

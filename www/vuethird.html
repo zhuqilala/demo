@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.min.js"></script>
+    <style>
+        .red {
+            background: red;
+            color: white;
+        }
+
+        .blue {
+            background: blue;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="message">
+        <input type="text" v-model="bfc">
+        <p v-bind:class="{red:message%2==1,blue:blc%3==1}">千变万化</p>
+
+        <input type="text" v-model="bmc">
+        <input type="text" v-model="blc">
+        <input type="text" v-model="bgc">
+        <p v-bind:style="{
+            fontSize : bmc + 'px',
+            width : blc + 'px',
+            background : '#' + bgc
+        }">千变万化</p>
+
+        <div>
+            <button v-on:click="message += 1">点击+1</button>
+            <p>这个按钮被点击了 {{message}} 次</p>
+        </div>
+
+        <button v-on:click="greet">Greet</button>
+
+        <button v-on:click.once="say('hi!')">Say Hi</button>
+        <!-- //时间修饰符 -->
+        <button v-on:click="say('what!')">Say What</button>
+
+        <input type="text" v-on:keyup.enter="say('hi!')">
+        <input type="text" v-on:keyup.alt.enter="say('hi!')">
+        <div v-on:click.ctrl="say('hi!')">DOSomething</div>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                message: 0,
+                bfc: 0,
+                bmc: '',
+                blc: '',
+                bgc: '',
+                name: 'Vue.JS'
+            },
+            methods: {
+                greet: function (event) {
+                    alert('hello' + this.name + '!');
+                    if (event) {
+                        alert(event.target.tagName);
+                    }
+                },
+                say: function (message) {
+                    alert(message)
+                }
+            },
+            //computed 对象内的方法如果在初始化时绑定到元素上的事件会先执行一次这个方法 ，而 methods 内的方法则不会；
+            //例如以下实例初始化时会自动执行一遍 name1 和 greet 这两个方法：
+            /* computed: {
+                name1: function () { alert('222') },
+                greet2: function (event) {
+                    // `this` 在方法里指当前 Vue 实例
+                    alert('Hello ' + this.name + '!')
+                    // `event` 是原生 DOM 事件
+                    if (event) {
+                        alert(event.target.tagName)
+                    }
+                }
+            } */
+        })
+
+    </script>
+
+</body>
+
+</html>

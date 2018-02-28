@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue组件</title>
+    <script src="js/vue.min.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <zhu></zhu>
+        <zhu2 message="hello!"></zhu2>
+        <zhu3></zhu3>
+
+        <div>
+            <input v-model="parentMsg">
+            <br>
+            <child v-bind:message2="parentMsg"></child>
+        </div>
+
+        <ol>
+            <todo-item v-for="item in sites" v-bind:todo="item"></todo-item>
+        </ol>
+    </div>
+
+    <script>
+        //注意确保在初始化根实例之前注册组件：
+        //注册全局组件
+        Vue.component('zhu', {
+            template: '<h2>自定义组件1！</h2>'
+        });
+
+        //注册局部组件
+        var Child = {
+            template: '<h3>自定义组件2！</h3>'
+        };
+
+        //注册  带声明
+        Vue.component('zhu2', {
+            //声明 props
+            props: ['message'],
+            template: '<p>{{ message }}</p>'
+        });
+
+        //嵌套组件
+        Vue.component('zhu3', {
+            template: '<h1><zhu2 message="hello!"></zhu2></h1>'
+        });
+
+        //用 v-bind 动态绑定 props 的值到父组件的数据中
+        Vue.component('child', {
+            props: ['message2'],
+            template: '<span>{{ message2 }}</span>'
+        });
+        //动态props
+        Vue.component('todo-item', {
+            props: ['todo'],
+            template: '<li>{{ todo.text }}</li>'
+        })
+
+        //创建实例
+        var app = new Vue({
+            el: '#app',
+            components: {
+                //<zhu> 将只在父模板可用
+                'zhu': Child,
+            },
+            data: {
+                parentMsg: '父组件内容',
+                sites: [{ text: "菜鸟" }, { text: "百度" }, { text: "腾讯" }]
+            },
+        });
+    </script>
+
+</body>
+
+</html>

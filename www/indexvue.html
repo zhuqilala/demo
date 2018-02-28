@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue.js MVVM</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <style>
+        .lg {
+            padding: 10px;
+            font-size: 24px;
+        }
+
+        .red {
+            color: #fff;
+            background-color: red;
+        }
+
+        .blue {
+            color: #fff;
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="page-header">
+            Vue.js 演示
+        </h1>
+        <div id="demo" class="row">
+            <div class="col-xs-6">
+                <h3>单向绑定(user)：</h3>
+                <!-- <h5>{ { &nbsp; } }: {{ user }}</h5> -->
+                <!-- v-text: -->
+                <!-- <div v-text="user"></div> -->
+                <div v-bind:class="{
+                    red: txt % 3 == 0,
+                    blue: txt % 3 == 1
+                }" v-bind:style="{
+                    color: color
+                }" class="lg">演示文字</div>
+            </div>
+            <div class="col-xs-6">
+                双向绑定(user)：
+                <input type="text" v-model="txt" class="form-control">
+                <input type="text" v-model="color" class="form-control">
+
+            </div>
+        </div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#demo',
+            data: {
+                txt: 0,
+                color: 'white'
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue.js</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <!-- <link rel="stylesheet" href="css/demo.css"> -->
+    <style>
+        .red {
+            color: red;
+        }
+
+        .blue {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="page-header">Vue.js</h1>
+        <p class="lead">过滤器 filter 语法：数据 | 过滤器名 参数 '参数'</p>
+        <div id="demo" class="row">
+            <!-- <h1>{{ "wElcOmE tO mY hOmE!!!" | capitalize }}</h1> -->
+            <div class="col-md-6">
+                <h2>货架</h2>
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>品名</th>
+                            <th class="text-right">单价</th>
+                            <th class="text-right">存量</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(row, index) in data">
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ row.name }}</td>
+                            <td class="text-right">{{ row.price | currency }}</td>
+                            <td class="text-right">{{ row.qty }}</td>
+                            <td>
+                                <div v-show="row.qty > 0" @click="add(row)" class="btn btn-xs btn-primary">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h2>购物车</h2>
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>品名</th>
+                            <th class="text-right">单价</th>
+                            <th class="text-right">数量</th>
+                            <!-- <th></th>
+                            <th></th> -->
+                            <th class="text-right">金额</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(row, index) in cart">
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ row.name }}</td>
+                            <td class="text-right">{{ row.price | currency }}</td>
+                            <td class="text-right">
+                                <div @click="minus(row, index)" class="btn btn-warning btn-xs">
+                                    <i class="glyphicon glyphicon-minus"></i>
+                                </div>
+                                &nbsp;
+                                <!-- </td> -->
+                                <!-- <td class="text-right">{{ row.qty }}</td> -->
+                                {{ row.qty }} &nbsp;
+                                <!-- <td> -->
+                                <div @click="add(row)" class="btn btn-primary btn-xs">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </div>
+                            </td>
+                            <td class="text-right">{{ row.price * row.qty | currency }}</td>
+                            <td>
+                                <div @click="rmv(row, index)" class="btn btn-danger btn-xs">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="2" class="text-right">
+                                总金额：{{ cart | sum | currency }} 元
+                            </th>
+                            <th colspan="2" class="text-right red">
+                                直接省 {{ (total - amt) | currency }} 元
+                            </th>
+                            <th colspan="2" class="text-right">
+                                实付：{{ amt | currency }} 元
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+                <h4>总金额：{{ total | currency }} 元（监视器方法）</h4>
+                <pre>{{ cart }}</pre>
+            </div>
+        </div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#demo',
+            filters: {
+                uppercase: function (str) {
+                    return str.toString().toUpperCase();
+                },
+                lowercase: function (str) {
+                    return str.toString().toLowerCase();
+                },
+                capitalize: function (str) {
+                    // var a = str.toString().toLowerCase().split("");
+                    // a[0] = a[0].toUpperCase();
+                    // return a.join("");
+                    return str.toString().charAt(0).toUpperCase() + str.toString().toLowerCase().slice(1);
+                },
+                currency: function (num, ch) {
+                    // var c = (typeof ch === 'undefined') ? "￥" : ch;
+                    var c = ch || "￥"; // || 条件或，作用：取真值
+                    // if (ch == 1 || ch == 2) {;}
+                    return c + ((!isNaN(num * 1)) ? (num * 1).toFixed(2) : '');
+                },
+                sum: function (arr) {
+                    var total = 0;
+                    for (var i = 0; i < arr.length; i++) {
+                        total += arr[i].price * arr[i].qty;
+                    }
+                    return total;
+                }
+            },
+            data: {
+                data: [
+                    {
+                        name: '纸巾',
+                        price: 1.5,
+                        qty: 32
+                    },
+                    {
+                        name: '香皂',
+                        price: 3.5,
+                        qty: 17
+                    },
+                    {
+                        name: '电水壶',
+                        price: 88,
+                        qty: 7
+                    },
+                    {
+                        name: '电风扇',
+                        price: 125,
+                        qty: 5
+                    },
+                    {
+                        name: '冰箱',
+                        price: 1170,
+                        qty: 3
+                    },
+                    {
+                        name: '打印机',
+                        price: 720,
+                        qty: 5
+                    }
+                ],
+                cart: [],
+                rule: [
+                    { min: 100, per: .95 },
+                    { min: 200, per: .92 },
+                    { min: 500, per: .9 },
+                    { min: 1000, per: .85 },
+                    { min: 2000, per: .82 },
+                    { min: 5000, per: .8 }
+                ],
+                total: 0,
+                amt: 0
+            },
+            methods: {
+                add: function (arr) {
+                    // 取货架品名的下标 index
+                    var ii = -1;
+                    this.data.forEach(function (el, index) {
+                        if (el.name == arr.name) {
+                            ii = index;
+                        }
+                    });
+                    // console.log(ii);
+                    // 判断货架是否由足够数量（>0）
+                    if (this.data[ii].qty <= 0) {
+                        return;
+                    }
+                    // 有足够数量，则货架数量扣1，同时加入购物车
+                    this.data[ii].qty--;
+                    // 检索购物车同一品名货品，决定+1还是新增项目
+                    var found = false;
+                    for (var i = 0; i < this.cart.length; i++) {
+                        if (this.cart[i].name == arr.name) {
+                            this.cart[i].qty++;
+                            found = true;
+                        }
+                    }
+                    // 没找到，新增...
+                    if (!found) {
+                        // console.log("add 1");
+                        this.cart.push({
+                            name: arr.name,
+                            price: arr.price,
+                            qty: 1
+                        });
+                    }
+                    // 计算总金额：
+                    // this.sum();
+                },
+                minus: function (arr, ii) {
+                    // 校验购物车数量
+                    if (this.cart[ii].qty <= 0) {
+                        return;
+                    }
+                    // 购物车数量扣1
+                    this.cart[ii].qty--;
+                    for (var i = 0; i < this.data.length; i++) {
+                        if (this.data[i].name == arr.name) {
+                            this.data[i].qty++;
+                            break;
+                        }
+                    }
+                },
+                rmv: function (arr, ii) {
+                    // 删除购物车对应项目
+                    this.cart.splice(ii, 1);
+                    // 检索货架 index 返还数量
+                    for (var i = 0; i < this.data.length; i++) {
+                        if (this.data[i].name == arr.name) {
+                            this.data[i].qty += arr.qty;
+                            break;
+                        }
+                    }
+                },
+                sum: function () {
+                    this.total = 0;
+                    for (var i = 0; i < this.cart.length; i++) {
+                        this.total += this.cart[i].price * this.cart[i].qty;
+                    }
+                    console.log("计算总金额...", this.total);
+                },
+                pay: function (n) {
+                    var p = 1;
+                    // 未优化代码：从头走到底
+                    for (var i = 0; i < this.rule.length; i++) {
+                        if (n >= this.rule[i].min) {
+                            p = this.rule[i].per;
+                        }
+                    }
+                    // 优化代码
+                    // for (var i = 0; i < this.rule.length && n >= this.rule[i].min; i++) {
+                    //     p = this.rule[i].per;
+                    // }
+                    // 实付金额
+                    return n * p;
+                }
+            }
+        });
+        // 监视器，监控购物车的数据改变，并做总金额统计、输出
+        // 为了精细监控，启动深层次扫面： {deep: true}
+        vm.$watch("cart", function () {
+            console.log("数据改变了！", Date.now());
+            // 调用方法：
+            this.sum();
+            this.amt = this.pay(this.total);
+        }, { deep: true });
+        // vm.filter();
+    </script>
+</body>
+
+</html>

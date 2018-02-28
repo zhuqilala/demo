@@ -1,0 +1,8 @@
+{
+  "name": "fancy-zoom",
+  "version": "1.2.1",
+  "main": ["./css/fancyzoom.css", "./src/fancyzoom.js", "./img/closebox.png"],
+  "dependencies": {
+    "jquery": ">=1.8.3"
+  }
+}

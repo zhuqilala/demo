@@ -1,0 +1,15 @@
+$red:red;
+$green:#0f0;
+$blue:rgb(0, 0, 192);
+$gray:rgba(0, 0, 0 , .5);
+$lightgray:rgba(128, 128, 128, .3);
+
+.demo {
+    color: $lightgray;  
+}
+
+$lightgray:#dcc;
+.box {
+    color: $red;
+    background-color: $blue;
+}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>hello vue</title>
+    <script src="js/vue.min.js"></script>
+    <style>
+        .class1 {
+            background: peru;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{ message | firstupper}}</p>
+        <span>字母顺序排列：{{main}}</span>
+        <button v-on:click='reverse'>点击反转</button>
+        <p v-html='elm'></p>
+        <!-- <p v-bind=''>我是v-bind绑定类名</p> -->
+        <a v-bind:href="url">进入百度</a>
+        <p>{{ lala }}</p>
+        <input v-model="lala">
+        <p v-if='seen'>现在你看到我了</p>
+        <p v-if='ok'>菜鸟教程</p>
+        <label for="r1">修改颜色</label>
+        <input type="checkbox" v-model="class1" id="r1">
+        <div v-bind:class="{'class1': class1}">
+            这里的颜色可以改变
+        </div>
+        <div>
+            <div v-if="mama > 0.5">{{mama + "&nbsp;YES"}}</div>
+            <div v-else-if="mama > 0.4 && mama < 0.6">{{mama + "&nbsp;OH"}}</div>
+            <div v-else>{{mama + "&nbsp;NO"}}</div>
+        </div>
+
+        <div>
+            <p v-if="maan === 'A'">A</p>
+            <p v-else-if="maan === 'B'">B</p>
+            <p v-else-if="maan === 'C'">C</p>
+            <p v-else="maan === 'B'">D</p>
+        </div>
+
+        <div v-for="x in sites">
+            <div v-for="y in x">
+                <p>{{y.name}}</p>
+                <p>{{y.age}}</p>
+            </div>
+        </div>
+
+        <div>
+            <ul>
+                <li v-for="(values,key,$index) in sites2">{{$index+1}} : {{key}} {{values}}</li>
+            </ul>
+        </div>
+
+        <div>
+            <p>{{ message2.split('').reverse().join('') }}</p>
+            <p>原始字符串: {{ message2 }}</p>
+            <p>计算后反转字符串: {{ reversemessage2 }}</p>
+            <p>使用方法后反转字符串: {{ reversemessage3() }}</p>
+        </div>
+
+        <div>
+            <p>{{ site }}</p>
+        </div>
+    </div>
+
+    <script>
+
+        var aaa = { a: 1 };
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'abCDefg',
+                main: 'hello',
+                elm: '<h1>你好我是h1标签</h1>',
+                name: '百度',
+                url: 'http://www.baidu.com',
+                lala: '双向数据绑定',
+                seen: true,
+                ok: false,
+                class1: false,
+                aaa,
+                mama: Math.random(),
+                maan: 'B',
+                sites: [
+                    [{
+                        name: 'join',
+                        age: 18
+                    }, {
+                        name: 'jack',
+                        age: 20
+                    }, {
+                        name: 'puma',
+                        age: 20
+                    }], [
+                        {
+                            name: 'kkk',
+                            age: 18
+                        }, {
+                            name: 'aaaa',
+                            age: 20
+                        }, {
+                            name: 'ddddd',
+                            age: 20
+                        }
+                    ], [
+                        {
+                            name: 'ttttt',
+                            age: 18
+                        }, {
+                            name: 'yyyyy',
+                            age: 20
+                        }, {
+                            name: 'jjjjj',
+                            age: 20
+                        }
+                    ]
+                ],
+                sites2: {
+                    name: '金华南',
+                    sex: '女',
+                    age: 88
+                },
+                message2: 'abcdef'
+            },
+            computed: {
+                //计算属性的getter
+                reversemessage2: function () {
+                    //'this'指向app实例
+                    return this.message2.split('').reverse().join('');
+                },
+                site: {
+                    //getter
+                    get: function () {
+                        return this.name + ' ' + this.url
+                    },
+                    //setter
+                    set: function (newValue) {
+                        var names = newValue.split(' ')
+                        this.name = names[0]
+                        this.url = names[names.length - 1]
+                    }
+                }
+            },
+            methods: {
+                reverse: function () {
+                    return this.main = this.main.split('').reverse().join('');
+                },
+                reversemessage3: function () {
+                    return this.message2.split('').reverse().join('');
+                }
+            },
+            filters: {
+                firstupper: function (str) {
+                    return str.toString()[0].toUpperCase() + str.toString().slice(1).toLowerCase();
+                },
+                uppercase: function (str) {
+                    return str.toString().toUpperCase();
+                },
+                lowercase: function (str) {
+                    return str.toString().toLowerCase();
+                }
+            }
+        });
+        console.log(app.aaa.a);
+        console.log(app.mama);
+
+        app.site = '菜鸟教程 http://www.runoob.com';
+        document.write('name:' + ' ' + app.name);
+        document.write('<br>');
+        document.write('url:' + ' ' + app.url);
+    </script>
+
+</body>
+
+</html>

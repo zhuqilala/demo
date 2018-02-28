@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue.js MVVM</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <style>
+        .red {
+            color: red;
+        }
+
+        .blue {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="page-header">Vue.js 数据的双向绑定</h1>
+        <div id="demo" class="row">
+            <div class="col-xs-6">
+                <h2>指令 v-for</h2>
+                <h4>{{ users }}</h4>
+                <div class="list-group">
+                    <div v-for="row in users" v-on:click="get(row)" class="list-group-item">
+                        <div class="badge">{{ row.age }}</div>
+                        <h5></h5>
+                        <strong v-bind:class="{
+                            red: row.sex == 'female',
+                            blue: row.sex == 'male'
+                        }">{{ row["name"] }}</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <h2>Form Info</h2>
+                <!-- <form action=""></form> -->
+                <div class="form-group">
+                    <label>用户名: </label>
+                    <input type="text" v-model="info.name" class="form-control">
+                </div>
+                <div class="from-group">
+                    <label>性别({{ info.sex }})：</label>
+                    <input type="radio" name="sex" v-model="info.sex" value="female"> 女士
+                    <input type="radio" name="sex" v-model="info.sex" value="male"> 男士
+                </div>
+                <div class="form-group">
+                    <label>年龄: </label>
+                    <input type="text" v-model="info.age" class="form-control">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#demo",
+            data: {
+                num: [1, 20, 30, 4, 600, 7],
+                info: {
+                    name: "",
+                    sex: "",
+                    age: 0
+                },
+                users: [
+                    {
+                        name: "Alice Wang",
+                        sex: "female",
+                        age: 18
+                    },
+                    {
+                        name: "William Zhang",
+                        sex: "male",
+                        age: 36
+                    },
+                    {
+                        name: "Tony Lin",
+                        sex: "male",
+                        age: 48
+                    }
+                ]
+            },
+            methods: {
+                get: function (arr) {
+                    // alert(arr);
+                    console.log(arr);
+                    console.log(this.info);
+                    //vm.info
+                    this.info = arr;
+                    console.log(this.info);
+                }
+            }
+        });
+        vm.info.name = "!!!";
+    </script>
+</body>
+
+</html>

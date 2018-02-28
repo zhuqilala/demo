@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.min.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <p>input 元素：</p>
+        <input v-model="message" placeholder="编辑我……">
+        <p>消息是: {{ message }}</p>
+
+        <p>textarea 元素：</p>
+        <textarea v-model="message2" placeholder="多行文本输入……"></textarea>
+        <p style="white-space: pre">{{ message2 }}</p>
+
+
+        <div>
+            <p>单个复选框：</p>
+            <input type="checkbox" id="checkbox" v-model="checked">
+            <label for="checkbox">{{ checked }}</label>
+
+            <p>多个复选框：</p>
+            <input type="checkbox" id="jack" value="jack" v-model="checkedNames">
+            <label for="jack">jack</label>
+            <input type="checkbox" id="lucy" value="lucy" v-model="checkedNames">
+            <label for="lucy">lucy</label>
+            <input type="checkbox" id="kitty" value="kitty" v-model="checkedNames">
+            <label for="kitty">kitty</label>
+            <br>
+            <span>选择的值为：{{ checkedNames }}</span>
+        </div>
+
+        <div>
+            <input type="radio" id="haha" value="haha" v-model="picked">
+            <label for="haha">haha</label>
+            <br>
+            <input type="radio" id="lala" value="lala" v-model="picked">
+            <label for="lala">lala</label>
+            <br>
+            <span>选中的人：{{ picked }}</span>
+        </div>
+
+        <div>
+            <select name="fruit" v-model="selected">
+                <option value="">选择一个网站</option>
+                <option value="www.baidu.com">百度</option>
+                <option value="www.google.com">谷歌</option>
+            </select>
+            <br>
+            <br>
+            <br>
+            <p>选择的网站是：{{ selected }}</p>
+        </div>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                message: '直播',
+                message2: '录播',
+                checked: false,
+                checkedNames: [],
+                picked: lala,
+                selected: '',
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "codes",
+  "description": "this is my codes",
+  "main": "index.js",
+  "authors": [
+    "ZhuQi"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "bootstrap": "^3.3.7",
+    "fancy-zoom": "^1.2.1",
+    "vue": "^2.4.4"
+  }
+}
